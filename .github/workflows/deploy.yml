@@ -6,7 +6,6 @@ jobs:
   deploy: 
     name: deploy
     runs-on: ubuntu-latest
-    environment: REMOTE_IP
     steps:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v0.1.9
@@ -16,6 +15,8 @@ jobs:
           key: ${{secrets.PEM}}
           port: ${{secrets.PORT}}
           script: |
+            echo "${{ secrets.USERNAME}}"
+            ls 
             cd flow-subject
             echo "SUCCESS!!"
             git pull
