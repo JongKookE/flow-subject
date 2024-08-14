@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 jobs:
   deploy: 
-    name: deploy
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands
@@ -15,8 +14,9 @@ jobs:
           key: ${{secrets.PEM}}
           port: ${{secrets.PORT}}
           script: |
-            echo "${{ secrets.USERNAME}}"
-            ls 
+            if [ ! -d "flow-subject" ]; then
+              git clone https://github.com/JongKookE/flow-subject
+            fi
             cd flow-subject
             echo "SUCCESS!!"
             git pull
