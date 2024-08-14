@@ -1,0 +1,22 @@
+name: Deploy
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push, pull_request]
+
+jobs:
+  deploy: 
+    name: deploy
+    runs-on: ubuntu-latest
+    environment: REMOTE_IP
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v0.1.9
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.PEM}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd github-action-test
+            echo "SUCCESS!!"
+            git pull
+            
