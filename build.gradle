@@ -39,3 +39,9 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.bootJar {
+    archiveBaseName.set('flow-subject')
+    archiveVersion.set('0.0.1-SNAPSHOT')
+    archiveClassifier.set('jongkookE')
+}
