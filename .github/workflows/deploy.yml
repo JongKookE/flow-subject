@@ -29,4 +29,7 @@ jobs:
             cd flow-subject
             echo "SUCCESS!!"
             git pull
+            chmod +x ./gradlew
+            ./gradlew build
+            java -jar build/libs/flow-subject-0.0.1-SNAPSHOT-jongkookE.jar
             
