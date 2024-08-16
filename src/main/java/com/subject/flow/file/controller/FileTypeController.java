@@ -6,10 +6,9 @@ import com.subject.flow.file.service.FileTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,5 +20,11 @@ public class FileTypeController {
     @ResponseBody
     public ResponseEntity<FileType> saveFileType(@RequestBody FileRequestDto fileRequestDto) {
         return ResponseEntity.ok(this.fileTypeService.save(fileRequestDto));
+    }
+
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<FileRequestDto>> findAll() {
+        return ResponseEntity.ok(this.fileTypeService.findAll());
     }
 }

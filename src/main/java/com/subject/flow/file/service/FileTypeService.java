@@ -6,6 +6,7 @@ import com.subject.flow.file.repository.FileTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,4 +33,15 @@ public class FileTypeService {
     public String justTest(String v){
         return v;
     }
+
+    public List<FileRequestDto> findAll() {
+        return this.fileTypeRepository.findAll()
+                .stream()
+                .map(entity -> FileRequestDto.builder()
+                        .fileType(entity.getName())
+                        .isSaved(entity.isSaved())
+                        .build())
+                .toList();
+    }
+
 }

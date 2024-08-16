@@ -1,3 +1,5 @@
+const fixList = ["bat", "cmd", "com", "cpl", "exe", "scr", "js"];
+
 const upload = async () => {
     const file = document.getElementById("input-file").files[0];
     if(!file){
@@ -49,10 +51,27 @@ const checkBoxChange = async (event) => {
     }
 }
 
+const checkboxs= document.querySelectorAll("#checkbox-list input[type='checkbox']")
+
 // checkbox에 일괄적으로 함수 적용
-document.querySelectorAll("#checkbox-list input[type='checkbox']")
-    .forEach(function(checkbox) {
+checkboxs.forEach(function(checkbox) {
         checkbox.addEventListener('change', function(){
             checkBoxChange(this);
         });
 });
+
+const checkBoxRefresh = async () => {
+    try{
+        const response = await fetch('api/types', {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        const result = await response.json();
+        result.forEach(res => {
+            if(fixList.includes(res.fileType)) document.getElementById(res.fileType).checked = res.saved;
+        })
+    } catch(e){
+        console.error('Error:', e);
+    }
+}
+window.onload = checkBoxRefresh;
