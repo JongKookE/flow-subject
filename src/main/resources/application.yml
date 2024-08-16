@@ -1,3 +1,25 @@
 spring:
   application:
     name: flow
+  profiles:
+    active: secret
+cloud:
+  aws:
+    s3:
+      bucket: ${BUCKETNAME}
+    credentials:
+      access-key: ${ACCESSKEY}
+      secret-key: ${SECRETKEY}
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+
+
+
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
