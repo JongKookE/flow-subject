@@ -1,6 +1,6 @@
 package com.subject.flow.file.controller;
 
-import com.subject.flow.file.service.UploadService;
+import com.subject.flow.file.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/files")
-public class UploadController {
-    private final UploadService uploadService;
+public class FileController {
+    private final FileService uploadService;
 
     @PostMapping
     @ResponseBody

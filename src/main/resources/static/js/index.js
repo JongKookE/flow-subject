@@ -26,3 +26,16 @@ const upload = async () => {
 const inputChange = () => {
     console.log(document.getElementById("input-file").files[0]);
 }
+
+const checkBoxChange = (event) => {
+    console.log(event.checked);
+    console.log(event.value);
+}
+
+// checkbox에 일괄적으로 함수 적용
+document.querySelectorAll("#checkbox-list input[type='checkbox']")
+    .forEach(function(checkbox) {
+        checkbox.addEventListener('change', function(){
+            checkBoxChange(this);
+        });
+});
