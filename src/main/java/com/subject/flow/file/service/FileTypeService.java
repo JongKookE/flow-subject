@@ -28,4 +28,8 @@ public class FileTypeService {
 
         return this.fileTypeRepository.save(entity);
     }
+
+    public String justTest(String v){
+        return v;
+    }
 }

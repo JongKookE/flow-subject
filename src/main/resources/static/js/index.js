@@ -27,9 +27,26 @@ const inputChange = () => {
     console.log(document.getElementById("input-file").files[0]);
 }
 
-const checkBoxChange = (event) => {
-    console.log(event.checked);
-    console.log(event.value);
+const checkBoxChange = async (event) => {
+    try {
+        // 서버에 POST 요청을 보냅니다.
+        const response = await fetch('api/types', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "fileType": event.value,
+                "isSaved": event.checked,
+            })
+        });
+        const result = await response.json();
+        // 응답 메시지를 alert로 표시합니다.
+        alert(result.name + "가 " + result.saved + "로 변경되었습니다.");
+    } catch (error) {
+        console.error('Error:', error);
+        alert('에러가 발생했습니다.');
+    }
 }
 
 // checkbox에 일괄적으로 함수 적용

@@ -15,7 +15,7 @@ public class FileType {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column
     private boolean saved;
 
     @Column
