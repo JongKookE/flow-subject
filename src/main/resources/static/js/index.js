@@ -6,6 +6,7 @@ const upload = async () => {
         alert("파일을 선택해 주세요");
         return;
     }
+
     const formData = new FormData();
 
     formData.append('file', file);
@@ -26,7 +27,19 @@ const upload = async () => {
 }
 
 const inputChange = () => {
-    console.log(document.getElementById("input-file").files[0]);
+    const file = document.getElementById("input-file").files[0];
+    const typenameSeperate = file.name.split(".");
+    const typename = typenameSeperate.length > 1 ? typenameSeperate[typenameSeperate.length - 1] : "";
+    getFileTypes().then((res) => {
+        res.forEach(item => {
+            if (item.fileType === typename) {
+                alert("제한된 확장자입니다!");
+                document.getElementById("upload-btn").disabled = true;
+                return;
+            }
+        })
+
+    })
 }
 
 const checkBoxChange = async (event) => {
@@ -74,4 +87,17 @@ const checkBoxRefresh = async () => {
         console.error('Error:', e);
     }
 }
+
+const getFileTypes = async () => {
+    try{
+        const response = await fetch('api/types', {
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        })
+        return await response.json();
+    } catch(e){
+        console.error('Error:', e);
+    }
+}
+
 window.onload = checkBoxRefresh;
