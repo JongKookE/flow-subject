@@ -34,6 +34,14 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // S3
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+
+    // javax.xml.bind:jaxb-api
+    // java 9 이상 버전이라면 의존성 추가해야함
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+    implementation 'javax.activation:activation:1.1.1' // Activation 관련 의존성
 }
 
 tasks.named('test') {

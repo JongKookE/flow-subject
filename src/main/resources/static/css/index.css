@@ -1,0 +1,4 @@
+.fixed-extension-item{
+    display: flex;
+    flex-direction: row;
+}
