@@ -3,6 +3,14 @@ spring:
     name: flow
   profiles:
     active: secret
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
 cloud:
   aws:
     s3:
@@ -13,11 +21,7 @@ cloud:
     stack:
       auto: false
     region:
-      static: ap-northeast-2
-
-
-
-
+      static: ${S3_REGION}
 
 logging:
   level:
