@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/files")
+@RequestMapping("/api/files")
 public class UploadController {
     private final UploadService uploadService;
 

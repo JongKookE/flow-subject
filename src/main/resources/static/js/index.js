@@ -10,7 +10,7 @@ const upload = async () => {
 
     try {
         // 서버에 POST 요청을 보냅니다.
-        const response = await fetch('/files', {
+        const response = await fetch('api/files', {
             method: 'POST',
             body: formData
         });
