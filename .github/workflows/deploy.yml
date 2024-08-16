@@ -1,6 +1,11 @@
 name: Deploy
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    branches:
+      - "main"
+
 
 jobs:
   JDK:
