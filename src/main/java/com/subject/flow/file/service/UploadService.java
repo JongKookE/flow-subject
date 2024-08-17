@@ -2,21 +2,21 @@ package com.subject.flow.file.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.subject.flow.file.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class FileService {
+public class UploadService {
     private final AmazonS3 s3Client;
-    private final FileRepository fileRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -31,9 +31,12 @@ public class FileService {
 
         try{
             s3Client.putObject(bucket, originalFilename, file.getInputStream(), metadata);
+        } catch(MaxUploadSizeExceededException e){
+            throw new RuntimeException("파일이 너무 커서 저장할 수 없습니다.");
         } catch (IOException e) {
             throw new RuntimeException("파일을 저장하지 못하였습니다.");
         }
+
         return originalFilename;
     }
 
