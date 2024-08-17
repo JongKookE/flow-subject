@@ -13,10 +13,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FileTypeService {
     private final FileTypeRepository fileTypeRepository;
+    private List<String> fixExtensions = List.of("bat", "cmd", "com", "cpl", "exe", "scr", "js");
+    private final int MAX_SIZE = 200;
 
     public FileType save(FileRequestDto dto) {
+
+        if(FileType.customFileSize(findAll(), fixExtensions) >= MAX_SIZE){
+            throw new ArrayIndexOutOfBoundsException("확장자의 범위를 벗어났습니다.");
+        }
+
         // 처음으로 저장된 파일 타입
         Optional<FileType> fileType = this.fileTypeRepository.findByName(dto.getFileType());
+
         if(fileType.isEmpty())
             return this.fileTypeRepository.save(FileType.builder()
                 .saved(true)

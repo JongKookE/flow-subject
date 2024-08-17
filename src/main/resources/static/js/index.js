@@ -1,5 +1,4 @@
 const fixList = ["bat", "cmd", "com", "cpl", "exe", "scr", "js"];
-const customExtensionList = [];
 
 const upload = async () => {
     const file = document.getElementById("input-file").files[0];
@@ -31,8 +30,12 @@ const upload = async () => {
         // 응답 메시지를 alert로 표시합니다.
         alert(result.message + " 무사히 업로드 되었습니다!");
     } catch (error) {
-        console.error('Error:', error);
-        alert('파일 업로드 중 오류가 발생했습니다.');
+        if(error.message === "확장자의 범위를 벗어났습니다.") alert("확장자는 최대 200개까지 가능합니다.");
+        else {
+            console.error('Error:', error);
+            alert('파일 업로드 중 오류가 발생했습니다.');
+        }
+
     }
 }
 
@@ -72,7 +75,7 @@ const refreshExtension = async () => {
     await getFileTypes().then((result) => {
         result.forEach(res => {
             if(fixList.includes(res.fileType)) document.getElementById(res.fileType).checked = res.saved;
-            // 추가 확장자란 로직 추가하기
+            // 추가 확장자 칸 로직 추가하기
             else {
                 const newButton = document.createElement("button");
                 newButton.innerText = res.fileType + " X";
@@ -116,13 +119,15 @@ const updateExtension = async (event) => {
             }),
         })
         const result = await response.json();
-        console.log(result);
-        alert(result.name);
-        if(fixList.includes(extensionName)) document.getElementById(extensionName).checked = false;
-        else document.getElementById(extensionName);
 
+        if(result.saved) alert(result.name + " 확장자가 추가되었습니다.");
+        else alert(result.name + " 확장자가 제거 되었습니다..");
+        if(fixList.includes(extensionName)) document.getElementById(extensionName).checked = false;
+        else document.getElementById(extensionName).remove();
     } catch (error) {
         console.error('Error:', error);
+    } finally {
+        await refreshExtension();
     }
 }
 
