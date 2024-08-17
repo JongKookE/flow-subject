@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,9 +31,12 @@ public class UploadService {
 
         try{
             s3Client.putObject(bucket, originalFilename, file.getInputStream(), metadata);
+        } catch(MaxUploadSizeExceededException e){
+            throw new RuntimeException("파일이 너무 커서 저장할 수 없습니다.");
         } catch (IOException e) {
             throw new RuntimeException("파일을 저장하지 못하였습니다.");
         }
+
         return originalFilename;
     }
 

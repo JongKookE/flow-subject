@@ -1,5 +1,6 @@
 const fixList = ["bat", "cmd", "com", "cpl", "exe", "scr", "js"];
 
+// 파일 업로드
 const upload = async () => {
     const file = document.getElementById("input-file").files[0];
     const fileType = file.name.split(".").pop();
@@ -7,6 +8,7 @@ const upload = async () => {
         alert("파일을 선택해 주세요");
         return;
     }
+
     const res = await getFileTypes();
 
     for (const element of res) {
@@ -21,24 +23,19 @@ const upload = async () => {
     formData.append('file', file);
 
     try {
-        // 서버에 POST 요청을 보냅니다.
         const response = await fetch('api/files', {
             method: 'POST',
             body: formData
         });
         const result = await response.json();
-        // 응답 메시지를 alert로 표시합니다.
         alert(result.message + " 무사히 업로드 되었습니다!");
     } catch (error) {
-        if(error.message === "확장자의 범위를 벗어났습니다.") alert("확장자는 최대 200개까지 가능합니다.");
-        else {
-            console.error('Error:', error);
-            alert('파일 업로드 중 오류가 발생했습니다.');
-        }
-
+        console.error(error);
+        alert(error.message);
     }
 }
 
+// 고정 확장자 체크
 const checkBoxInsert = async (event) => {
     try {
         // 서버에 POST 요청을 보냅니다.
@@ -70,12 +67,12 @@ checkboxs.forEach(function(checkbox) {
         });
 });
 
+// 확장자 부르기
 const refreshExtension = async () => {
     const exposeDiv = document.getElementById("expose-extension");
     await getFileTypes().then((result) => {
         result.forEach(res => {
             if(fixList.includes(res.fileType)) document.getElementById(res.fileType).checked = res.saved;
-            // 추가 확장자 칸 로직 추가하기
             else {
                 const newButton = document.createElement("button");
                 newButton.innerText = res.fileType + " X";
@@ -105,6 +102,10 @@ const updateExtension = async (event) => {
     let flag = false;
     if(event.id === "add-extension-button") {
         extensionName = document.getElementById("customExtension").value;
+        if(extensionName.length <= 0) {
+            alert("확장자가 없습니다.");
+            return;
+        }
         flag = true;
     }
     else extensionName = event;
@@ -127,6 +128,7 @@ const updateExtension = async (event) => {
     } catch (error) {
         console.error('Error:', error);
     } finally {
+        document.getElementById("customExtension").value = "";
         await refreshExtension();
     }
 }
