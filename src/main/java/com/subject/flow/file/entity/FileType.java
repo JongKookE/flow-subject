@@ -21,7 +21,8 @@ public class FileType {
     @Column
     private String name;
 
-    public void setSaved(boolean saved) {
+    public void saved(boolean saved) {
         this.saved = saved;
     }
+
 }

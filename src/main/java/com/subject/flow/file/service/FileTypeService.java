@@ -25,7 +25,7 @@ public class FileTypeService {
         FileType entity = fileType.get();
 
         // 파일타입이 존재하고, 체크박스가 true일때
-        entity.setSaved(dto.isSaved());
+        entity.saved(dto.isSaved());
 
         return this.fileTypeRepository.save(entity);
     }
@@ -33,6 +33,7 @@ public class FileTypeService {
     public List<FileRequestDto> findAll() {
         return this.fileTypeRepository.findAll()
                 .stream()
+                .filter(FileType::isSaved)
                 .map(entity -> FileRequestDto.builder()
                         .fileType(entity.getName())
                         .isSaved(entity.isSaved())
