@@ -6,28 +6,37 @@
     <link rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
 <body>
-        <div>고정 확장자</div>
-            <div id="checkbox-list">
-                <input id="bat" type="checkbox" value="bat">
-                <label for="bat">bat</label>
-                <input id="cmd" type="checkbox" value="cmd">
-                <label for="cmd">cmd</label>
-                <input id="com" type="checkbox" value="com">
-                <label for="com">com</label>
-                <input id="cpl" type="checkbox" value="cpl">
-                <label for="cpl">cpl</label>
-                <input id="exe" type="checkbox" value="exe">
-                <label for="exe">exe</label>
-                <input id="scr" type="checkbox" value="scr">
-                <label for="scr">scr</label>
-                <input id="js" type="checkbox"  value="js">
-                <label for="js">js</label>
-            </div>
-        <div id="upload-file">
-            <input id="input-file" type="file" th:name="file">
-            <button id="upload-btn" type="submit" onclick="upload()">전송</button>
+<div class="container">
+    <div class="select-left">고정 확장자 </div>
+        <div id="checkbox-list">
+            <input id="bat" type="checkbox" value="bat">
+            <label for="bat">bat</label>
+            <input id="cmd" type="checkbox" value="cmd">
+            <label for="cmd">cmd</label>
+            <input id="com" type="checkbox" value="com">
+            <label for="com">com</label>
+            <input id="cpl" type="checkbox" value="cpl">
+            <label for="cpl">cpl</label>
+            <input id="exe" type="checkbox" value="exe">
+            <label for="exe">exe</label>
+            <input id="scr" type="checkbox" value="scr">
+            <label for="scr">scr</label>
+            <input id="js" type="checkbox"  value="js">
+            <label for="js">js</label>
         </div>
+    <div class="select-left">커스텀 확장자 </div>
+    <div>
+        <label for="customExtension"></label>
+        <input id="customExtension" maxlength="20" oninput="validMaxSize(this)" type="text" placeholder="확장자 입력">
+        <button id="add-extension-button" onclick="updateExtension(this)">+추가</button>
+    </div>
+    <div id="expose-extension"></div>
 
+    <div id="upload-file">
+        <input id="input-file" type="file" th:name="file">
+        <button id="upload-btn" type="submit" onclick="upload()">전송</button>
+    </div>
+</div>
 
 </body>
 <script th:src="@{/js/index.js}"></script>

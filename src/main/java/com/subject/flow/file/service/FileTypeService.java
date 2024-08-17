@@ -13,10 +13,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FileTypeService {
     private final FileTypeRepository fileTypeRepository;
+    private List<String> fixExtensions = List.of("bat", "cmd", "com", "cpl", "exe", "scr", "js");
+    private final int MAX_SIZE = 200;
 
     public FileType save(FileRequestDto dto) {
+
+        if(FileType.customFileSize(findAll(), fixExtensions) >= MAX_SIZE){
+            throw new ArrayIndexOutOfBoundsException("확장자의 범위를 벗어났습니다.");
+        }
+
         // 처음으로 저장된 파일 타입
         Optional<FileType> fileType = this.fileTypeRepository.findByName(dto.getFileType());
+
         if(fileType.isEmpty())
             return this.fileTypeRepository.save(FileType.builder()
                 .saved(true)
@@ -25,7 +33,7 @@ public class FileTypeService {
         FileType entity = fileType.get();
 
         // 파일타입이 존재하고, 체크박스가 true일때
-        entity.setSaved(dto.isSaved());
+        entity.saved(dto.isSaved());
 
         return this.fileTypeRepository.save(entity);
     }
@@ -33,6 +41,7 @@ public class FileTypeService {
     public List<FileRequestDto> findAll() {
         return this.fileTypeRepository.findAll()
                 .stream()
+                .filter(FileType::isSaved)
                 .map(entity -> FileRequestDto.builder()
                         .fileType(entity.getName())
                         .isSaved(entity.isSaved())
