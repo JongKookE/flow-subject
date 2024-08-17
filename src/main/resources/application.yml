@@ -4,13 +4,15 @@ spring:
   profiles:
     active: secret
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: ${H2_DB_URL}
     driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    username: ${H2_USERNAME}
+    password: ${H2_PASSWORD}
   h2:
     console:
       enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 cloud:
   aws:
     s3:

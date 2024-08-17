@@ -6,24 +6,22 @@
     <link rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
 <body>
-        <div>
-            <div>고정 확장자</div>
-                <div>
-                    <input id="bat" type="checkbox" value="bat">
-                    <label for="bat">bat</label>
-                    <input id="cmd" type="checkbox" value="cmd">
-                    <label for="cmd">cmd</label>
-                    <input id="com" type="checkbox" value="com">
-                    <label for="com">com</label>
-                    <input id="cpl" type="checkbox" value="cpl">
-                    <label for="cpl">cpl</label>
-                    <input id="exe" type="checkbox" value="exe">
-                    <label for="exe">exe</label>
-                    <input id="scr" type="checkbox" value="scr">
-                    <label for="scr">scr</label>
-                    <input id="js" type="checkbox" value="js">
-                    <label for="js">js</label>
-                </div>
+        <div>고정 확장자</div>
+            <div id="checkbox-list">
+                <input id="bat" type="checkbox" value="bat">
+                <label for="bat">bat</label>
+                <input id="cmd" type="checkbox" value="cmd">
+                <label for="cmd">cmd</label>
+                <input id="com" type="checkbox" value="com">
+                <label for="com">com</label>
+                <input id="cpl" type="checkbox" value="cpl">
+                <label for="cpl">cpl</label>
+                <input id="exe" type="checkbox" value="exe">
+                <label for="exe">exe</label>
+                <input id="scr" type="checkbox" value="scr">
+                <label for="scr">scr</label>
+                <input id="js" type="checkbox"  value="js">
+                <label for="js">js</label>
             </div>
         <div id="upload-file">
             <input id="input-file" type="file" onchange="inputChange()" th:name="file">
