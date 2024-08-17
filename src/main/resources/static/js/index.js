@@ -49,9 +49,6 @@ const checkBoxInsert = async (event) => {
                 "isSaved": event.checked,
             })
         });
-        const result = await response.json();
-        // 응답 메시지를 alert로 표시합니다.
-        alert(result.name + "가 " + result.saved + "로 변경되었습니다.");
     } catch (error) {
         console.error('Error:', error);
         alert('에러가 발생했습니다.');
