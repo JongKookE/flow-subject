@@ -30,10 +30,6 @@ public class FileTypeService {
         return this.fileTypeRepository.save(entity);
     }
 
-    public String justTest(String v){
-        return v;
-    }
-
     public List<FileRequestDto> findAll() {
         return this.fileTypeRepository.findAll()
                 .stream()
