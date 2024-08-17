@@ -27,7 +27,6 @@ public class UploadService {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(file.getSize());
         metadata.setContentType(file.getContentType());
-        log.info(file.getOriginalFilename());
 
         try{
             s3Client.putObject(bucket, originalFilename, file.getInputStream(), metadata);
