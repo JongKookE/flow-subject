@@ -2,9 +2,18 @@ const fixList = ["bat", "cmd", "com", "cpl", "exe", "scr", "js"];
 
 const upload = async () => {
     const file = document.getElementById("input-file").files[0];
+    const fileType = getUploadType();
     if(!file){
         alert("파일을 선택해 주세요");
         return;
+    }
+    const res = await getFileTypes();
+
+    for (const element of res) {
+        if (element.fileType === fileType) {
+            alert("제한된 확장자입니다.");
+            return;
+        }
     }
 
     const formData = new FormData();
@@ -25,22 +34,23 @@ const upload = async () => {
         alert('파일 업로드 중 오류가 발생했습니다.');
     }
 }
-
-const inputChange = () => {
-    const file = document.getElementById("input-file").files[0];
-    const typenameSeperate = file.name.split(".");
-    const typename = typenameSeperate.length > 1 ? typenameSeperate[typenameSeperate.length - 1] : "";
-    getFileTypes().then((res) => {
-        res.forEach(item => {
-            if (item.fileType === typename) {
-                alert("제한된 확장자입니다!");
-                document.getElementById("upload-btn").disabled = true;
-                return;
-            }
-        })
-
-    })
-}
+/** TODO
+ * 인풋값을 기준으로 한다면, 파일이 선택되고, 확장자를 추가 및 삭제했을때 반영이 어려움
+ * const inputChange = () => {
+ *     const file = document.getElementById("input-file").files[0];
+ *     const typenameSeperate = file.name.split(".");
+ *     const typename = typenameSeperate.length > 1 ? typenameSeperate[typenameSeperate.length - 1] : "";
+ *     getFileTypes().then((res) => {
+ *         res.forEach(item => {
+ *             if (item.fileType === typename) {
+ *                 alert("제한된 확장자입니다!");
+ *                 document.getElementById("upload-btn").disabled = true;
+ *                 return;
+ *             }
+ *         })
+ *     })
+ * }
+ */
 
 const checkBoxChange = async (event) => {
     try {
@@ -98,6 +108,12 @@ const getFileTypes = async () => {
     } catch(e){
         console.error('Error:', e);
     }
+}
+
+const getUploadType = () => {
+    const file = document.getElementById("input-file").files[0];
+    const typenameSeperate = file.name.split(".");
+    return typenameSeperate.length > 1 ? typenameSeperate[typenameSeperate.length - 1] : "";
 }
 
 window.onload = checkBoxRefresh;
