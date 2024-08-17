@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.subject.flow.constant.AppConstants.*;
+
 @Service
 @RequiredArgsConstructor
 public class FileTypeService {
     private final FileTypeRepository fileTypeRepository;
-    private List<String> fixExtensions = List.of("bat", "cmd", "com", "cpl", "exe", "scr", "js");
-    private final int MAX_SIZE = 200;
 
     public FileType save(FileRequestDto dto) {
 
-        if(FileType.customFileSize(findAll(), fixExtensions) >= MAX_SIZE){
+        if(FileType.customFileSize(findAll(), FIX_EXTENSIONS) >= EXTENSION_MAX_SIZE){
             throw new ArrayIndexOutOfBoundsException("확장자의 범위를 벗어났습니다.");
         }
 

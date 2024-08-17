@@ -2,7 +2,6 @@ package com.subject.flow.file.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.subject.flow.file.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,12 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class FileService {
+public class UploadService {
     private final AmazonS3 s3Client;
-    private final FileRepository fileRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
